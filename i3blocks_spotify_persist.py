@@ -227,6 +227,12 @@ class SpotifyBlocklet:
 
     def show_info(self, status, metadata, only_if_changed=False):
         artist = ', '.join(metadata['xesam:artist'])
+
+        # For podcasts the artist field is always blank and the
+        # name of the podcast is placed in the album field.
+        if artist == '':
+            artist = metadata['xesam:album']
+
         title = metadata['xesam:title']
         info = self._formatter(
             status=status,
